@@ -1,72 +1,81 @@
 import 'dart:math';
 
+import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_apps/ui/homepage.dart';
+import 'package:weather_apps/ui/location_view.dart';
+import 'package:weather_apps/ui/settings_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  var _selectedTab = 0;
+
+  void _handleIndexChanged(int i) {
+    setState(() {
+      _selectedTab = i;
+    });
+  }
+
+  List<Widget> screens = [
+    Homepage(),
+    SettingsView(),
+    LocationView(),
+  ];
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(children: [
-          Row(
-            children: [
-              Icon(Icons.location_on),
-              const Text(
-                'CAPE COAST',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text("${DateTime.now()}"),
-          Card(
-            elevation: 10,
-            shadowColor: Colors.grey,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(27.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        " 27°",
-                        style: TextStyle(
-                            fontSize: 62, fontWeight: FontWeight.w600),
-                      ),
-                      Text("Real feel: 27°"),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.sunny_snowing,
-                        size: 65,
-                      ),
-                      Text(
-                        "Sunny",
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  )
-                ],
+      backgroundColor: Color(0xffF8F8F9),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: IndexedStack(
+          children: screens,
+          index: _selectedTab,
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: DotNavigationBar(
+          marginR: EdgeInsets.symmetric(vertical: 10),
+          currentIndex: _selectedTab,
+          selectedItemColor: Color(0xff637DFF),
+          unselectedItemColor: Color(0xffA6ABB2),
+          onTap: _handleIndexChanged,
+          items: [
+            DotNavigationBarItem(
+              icon: Column(
+                children: [Icon(Icons.sunny_snowing), Text("Weather")],
               ),
             ),
-          ),
-          const SizedBox(height: 16),
-          Column(
-            children: [
-              WeatherDetailsLabel()
-            ],
-          )
-        ]),
+
+            /// Likes
+            DotNavigationBarItem(
+              icon: Column(
+                children: [Icon(Icons.location_on), Text("Places")],
+              ),
+            ),
+
+            /// Search
+            DotNavigationBarItem(
+              icon: Column(
+                children: [Icon(Icons.newspaper), Text("News")],
+              ),
+            ),
+            DotNavigationBarItem(
+              icon: Column(
+                children: [Icon(Icons.person), 
+                Text("Preference",softWrap: true,)],
+              ),
+            ),
+
+            /// Profile
+          ],
+        ),
       ),
     );
   }
@@ -75,15 +84,21 @@ class HomeView extends StatelessWidget {
 class WeatherDetailsLabel extends StatelessWidget {
   const WeatherDetailsLabel({
     Key? key,
+    this.label,
+    this.value,
   }) : super(key: key);
-
+  final String? label;
+  final String? value;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Humidity",style: TextStyle(fontWeight: FontWeight.w600),),
-        Text("${Random().nextInt(100)}%"),
+        Text(
+          label!,
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+        Text("$value"),
       ],
     );
   }
