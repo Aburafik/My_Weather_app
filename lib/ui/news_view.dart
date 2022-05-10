@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:weather_apps/models/news_model.dart';
-import 'package:weather_apps/repositories/network.dart';
+import 'package:weather_apps/repositories/news_repository.dart';
 import 'package:weather_apps/ui/ui_widgets.dart';
 
 class LatestNews extends StatefulWidget {
+  const LatestNews({Key? key}) : super(key: key);
+
   @override
   _LatestNewsState createState() => _LatestNewsState();
 }
@@ -14,7 +16,6 @@ class _LatestNewsState extends State<LatestNews> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Network network = Network();
     news = network.getNews();
@@ -32,7 +33,7 @@ class _LatestNewsState extends State<LatestNews> {
                   child: ListView.builder(
                     itemCount: snapshots.data!.articles!.length,
                     itemBuilder: (context, index) {
-                      return articlesContent(context, snapshots, index);
+                      return newsCard(context, snapshots, index);
                     },
                   ),
                 );

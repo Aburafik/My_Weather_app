@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_apps/ui/homepage.dart';
 import 'package:weather_apps/ui/location_view.dart';
-import 'package:weather_apps/ui/settings_view.dart';
+import 'package:weather_apps/ui/news_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -22,10 +20,10 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  List<Widget> screens = [
-    const Homepage(),
-    const LocationView(),
+  List<Widget> screens =const [
+    Homepage(),
     LatestNews(),
+    LocationView(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -56,14 +54,14 @@ class _HomeViewState extends State<HomeView> {
             /// Likes
             DotNavigationBarItem(
               icon: Column(
-                children: const [Icon(Icons.location_on), Text("Places")],
+                children: const [Icon(Icons.newspaper),Text("News")],
               ),
             ),
 
             /// Search
             DotNavigationBarItem(
               icon: Column(
-                children: const [Icon(Icons.newspaper), Text("News")],
+                children: const [Icon(Icons.location_on), Text("Places")],
               ),
             ),
 
