@@ -23,14 +23,14 @@ class _HomeViewState extends State<HomeView> {
   }
 
   List<Widget> screens = [
-    Homepage(),
-    SettingsView(),
-    LocationView(),
+    const Homepage(),
+    const LocationView(),
+    LatestNews(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF8F8F9),
+      backgroundColor: const Color(0xffF8F8F9),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: IndexedStack(
@@ -41,35 +41,29 @@ class _HomeViewState extends State<HomeView> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: DotNavigationBar(
-          marginR: EdgeInsets.symmetric(vertical: 10),
+          marginR: const EdgeInsets.symmetric(vertical: 10),
           currentIndex: _selectedTab,
-          selectedItemColor: Color(0xff637DFF),
-          unselectedItemColor: Color(0xffA6ABB2),
+          selectedItemColor: const Color(0xff637DFF),
+          unselectedItemColor: const Color(0xffA6ABB2),
           onTap: _handleIndexChanged,
           items: [
             DotNavigationBarItem(
               icon: Column(
-                children: [Icon(Icons.sunny_snowing), Text("Weather")],
+                children: const [Icon(Icons.sunny_snowing), Text("Weather")],
               ),
             ),
 
             /// Likes
             DotNavigationBarItem(
               icon: Column(
-                children: [Icon(Icons.location_on), Text("Places")],
+                children: const [Icon(Icons.location_on), Text("Places")],
               ),
             ),
 
             /// Search
             DotNavigationBarItem(
               icon: Column(
-                children: [Icon(Icons.newspaper), Text("News")],
-              ),
-            ),
-            DotNavigationBarItem(
-              icon: Column(
-                children: [Icon(Icons.person), 
-                Text("Preference",softWrap: true,)],
+                children: const [Icon(Icons.newspaper), Text("News")],
               ),
             ),
 
@@ -96,7 +90,7 @@ class WeatherDetailsLabel extends StatelessWidget {
       children: [
         Text(
           label!,
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         Text("$value"),
       ],
