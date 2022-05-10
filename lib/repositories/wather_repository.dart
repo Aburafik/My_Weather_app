@@ -13,7 +13,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
   final url = 'https://api.openweathermap.org/data/2.5/weather';
 
   String urlBuilder({required lat, required lon}) {
-    const apiKey = "YOURAPIKEY";
+    const apiKey = "YOUR_API_KEY";
     return '$url?lat=$lat&lon=$lon&appid=$apiKey&units=metric';
   }
 

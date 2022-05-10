@@ -61,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
             /// Search
             DotNavigationBarItem(
               icon: Column(
-                children: const [Icon(Icons.location_on), Text("Places")],
+                children: const [Icon(Icons.room_preferences), Text("Preferences")],
               ),
             ),
 

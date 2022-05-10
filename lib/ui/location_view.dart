@@ -1,79 +1,134 @@
 import 'package:flutter/material.dart';
 
+Color commonColor = const Color(0xff808791);
+
 class LocationView extends StatelessWidget {
   const LocationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    TextStyle headerTitleStyle = TextStyle(
-        fontSize: 20, color: Color(0xff212D3F), fontWeight: FontWeight.bold);
+    TextStyle headerTitleStyle = const TextStyle(
+        fontSize: 20,
+        color: const Color(0xff212D3F),
+        fontWeight: FontWeight.bold);
     return Scaffold(
       body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-          Card(
-            color: Color(0xffF7F7F7),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              elevation: 15,
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Card(
-                      color: Color(0xffDBDBDB),
-
-                      elevation: 20,
-                      // color: Colors.grey,
-                      child: SizedBox(
-                        height: 120,
-                        width: 120,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Container(
-                      height: 120,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            "UserName",
-                            style: headerTitleStyle,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+              Card(
+                  color: const Color(0xffF7F7F7),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  elevation: 15,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Card(
+                          color: const Color(0xffDBDBDB),
+                          elevation: 20,
+                          child: SizedBox(
+                            height: 120,
+                            width: 120,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Text("City"),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          height: 120,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "UserName",
+                                style: headerTitleStyle,
+                              ),
+                              const Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text("City"),
+                              ),
+                              const Spacer(),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 2.5,
+                                child: Material(
+                                  shape: RoundedRectangleBorder(
+                                    side: const BorderSide(color: Colors.red),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: const Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Center(child: Text("LOGOUT")),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                          Spacer(),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.5,
-                            child: Material(
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Center(child: Text("LOGOUT")),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                        )
+                      ],
+                    ),
+                  )),
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+                Text("SETTINGS", style: headerTitleStyle),
+                const SettingsTiles(
+                  titleTile: "Temperature",
                 ),
-              )),
+                const SettingsTiles(
+                  titleTile: "Wind Speeed mph",
+                ),
+                const SettingsTiles(
+                  titleTile: "24-HOUR Time",
+                ),
+              ]),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+              Text("ABOUT", style: headerTitleStyle),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: aboutDetails(title: "Version 1.0.0"),
+              ),
+              aboutDetails(title: "Author: CitizenRaf Pretech-Cape Coast"),
+              aboutDetails(title: "Weather App infor: OpenWeatherMap"),
+              aboutDetails(title: "News App infor: NewsAPI"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
+  Text aboutDetails({String? title}) => Text(
+        title!,
+        style: TextStyle(fontSize: 17, color: commonColor),
+      );
+}
 
-        ],
-      )),
+class SettingsTiles extends StatelessWidget {
+  const SettingsTiles({Key? key, this.titleTile}) : super(key: key);
+  final String? titleTile;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          titleTile!,
+          style: TextStyle(color: commonColor),
+        ),
+        SizedBox(
+            width: 30,
+            child: Switch(
+                inactiveTrackColor: const Color(0xff53B476),
+                activeTrackColor: Colors.red,
+                value: false,
+                onChanged: (value) {}))
+      ],
     );
   }
 }
