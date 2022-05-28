@@ -13,12 +13,14 @@ class LatestNews extends StatefulWidget {
 class _LatestNewsState extends State<LatestNews> {
   //Creating a future variable of Our news class
   Future<News>? news;
+  Future? data;
 
   @override
   void initState() {
     super.initState();
     Network network = Network();
     news = network.getNews();
+    // data=network.getReportData();
   }
 
   @override

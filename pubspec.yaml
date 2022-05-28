@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   dot_navigation_bar: ^1.0.1+4
+  logger: ^1.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
