@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class News {
   String? status;
   int? totalResults;
@@ -94,64 +92,4 @@ class Source {
     data['name'] = this.name;
     return data;
   }
-}
-
-
-
-// To parse this JSON data, do
-//
-//     final generateTraveler = generateTravelerFromJson(jsonString);
-
-/// YOUR API MODEL CODE HERE
-
-List<GenerateTraveler> generateTravelerFromJson(String str) => List<GenerateTraveler>.from(json.decode(str).map((x) => GenerateTraveler.fromJson(x))).toList();
-
-String generateTravelerToJson(List<GenerateTraveler> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
-class GenerateTraveler {
-    GenerateTraveler({
-        this.day,
-        this.children,
-    });
-
-    DateTime? day;
-    List<Child>? children;
-
-    factory GenerateTraveler.fromJson(Map<String, dynamic> json) => GenerateTraveler(
-        day: DateTime.parse(json["day"]),
-        children: List<Child>.from(json["children"].map((x) => Child.fromJson(x))),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "day": "${day!.year.toString().padLeft(4, '0')}-${day!.month.toString().padLeft(2, '0')}-${day!.day.toString().padLeft(2, '0')}",
-        "children": List<dynamic>.from(children!.map((x) => x.toJson())),
-    };
-}
-
-class Child {
-    Child({
-        this.id,
-        this.name,
-        this.arrival,
-        this.departure,
-    });
-
-    int? id;
-    String ?name;
-    DateTime? arrival;
-    dynamic departure;
-
-    factory Child.fromJson(Map<String, dynamic> json) => Child(
-        id: json["id"],
-        name: json["name"],
-        arrival: DateTime.parse(json["arrival"]),
-        departure: json["departure"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "arrival": arrival!.toIso8601String(),
-        "departure": departure,
-    };
 }
